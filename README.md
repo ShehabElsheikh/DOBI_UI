@@ -30,6 +30,22 @@ It connects with a ROS 2 + micro-ROS pipeline to control a robot via **manual jo
 ## 📂 Project Structure
 
 ```
+      ┌─────────────┐       HTTP / WebSocket       ┌─────────────┐
+      │  Streamlit  │ <--------------------------> │   Bridge    │
+      │    UI App   │                              │ (FastAPI WS)│
+      └─────────────┘                              └─────┬───────┘
+                                                         │
+                                          ROS 2 Python Node (rclpy)
+                                                         │
+                                     Publishes/subscribes ROS topics
+                                                         ↓
+                                              Other ROS 2 Nodes
+
+```
+
+## 📂 Directory Setup
+
+```
 DOBI_UI/
 │
 ├── bridge/ # WebSocket bridge for UI ↔ ROS2
@@ -60,8 +76,8 @@ DOBI_UI/
 
 1. **Clone the repository**
 ```
-git clone 
-cd 
+git clone https://github.com/ShehabElsheikh/DOBI_UI
+cd DOBI_UI
 ```
 2. **Install system dependencies**
 ```
@@ -104,18 +120,32 @@ DETECTION_CONFIDENCE = 0.5      # Minimum detection confidence
 SPEED_LINEAR = 0.5
 SPEED_ANGULAR = 0.3
 ```
+## 🖥 Installing the WebSocket Bridge (run_bridge.sh)
 
-## ▶️ Running the UI
-Start the ROS 2 WebSocket Bridge
+The `run_bridge.sh` script is included to automatically detect and launch the ROS 2 WebSocket bridge, no matter which ROS 2 distribution or Raspberry Pi setup you’re using.
+
+**Installation Steps:**
+
+1. **Make the script executable**
+   ```bash
+   chmod +x run_bridge.sh
+
+2. **Start the ROS 2 WebSocket Bridge**
 ```python
 bash run_bridge.sh
 ```
-Launch the Streamlit UI
+
+Automatically detects your ROS 2 installation (Foxy, Humble, Galactic, etc.).
+Sources your ROS 2 environment.
+Sources your workspace if found (~/ros2_ws/install/setup.bash).
+Launches rosbridge_websocket on the default port 9090.
+
+3. **Launch the Streamlit UI**
 ```python
 streamlit run main.py --server.port 8501
 ```
 
-Open your browser and go to:
+4. **Open your browser and go to:**
 ```python
 http://<raspberrypi-ip>:8501
 ```
@@ -144,3 +174,4 @@ The UI integrates Ultralytics YOLOv8 for visual recognition.
 Detected objects are displayed on the camera stream in real time.
 
 Detection performance depends on your Raspberry Pi’s processing capability and the chosen YOLO model size.
+
