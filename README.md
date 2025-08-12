@@ -152,17 +152,13 @@ http://<raspberrypi-ip>:8501
 ---
 ## 🔌 Manual vs Automatic Mode
 **Manual Mode:**
-
 Allows direct driving via UI controls.
-
 Commands are sent directly to the ESP firmware via ROS 2 topics.
 
 **Automatic Mode:**
 
 Triggers the autonomous behavior on the ESP (navigation, avoidance).
-
 The UI still receives sensor data and detection outputs in real time.
-
 Mode switching is available from the control panel inside the UI.
 
 ---
@@ -170,7 +166,25 @@ Mode switching is available from the control panel inside the UI.
 ## 📷 Object Detection
 
 The UI integrates Ultralytics YOLOv8 for visual recognition.
-
 Detected objects are displayed on the camera stream in real time.
+
+---
+
+## **⚠️ Alert Logging and Categorizing**
+
+| Class Name                                                           | Severity                     | Reason                                                                                               |
+| -------------------------------------------------------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **smoke / fire (asap/api)**                                          | **High**                     | Immediate danger to life and property, requires instant action.                                      |
+| **gas**                                                              | **High**                     | Risk of explosion, suffocation, or poisoning.                                                        |
+| **leak**                                                             | **Moderate**                 | Could indicate fluid, chemical, or fuel leak — hazard but not always instantly life-threatening.     |
+| **crack**                                                            | **Moderate**                 | Structural integrity risk — urgent maintenance needed but not immediate danger unless critical size. |
+| **damage**                                                           | **Moderate**                 | Could affect machinery, safety barriers, or structural parts — needs prompt repair.                  |
+| **Person without PPE** *(detected indirectly via missing PPE items)* | **Moderate**                 | Unsafe work practice, risk of injury.                                                                |
+| **Hardhat**                                                          | **Low** (positive detection) | Compliance item — low severity if present. High severity if absent in required zones.                |
+| **Safety\_Boots**                                                    | **Low** (positive detection) | Same as above.                                                                                       |
+| **Safety\_Gloves**                                                   | **Low**                      | Same as above.                                                                                       |
+| **Safety\_Mask**                                                     | **Low**                      | Same as above unless in hazardous environment.                                                       |
+| **Safety\_Vest**                                                     | **Low**                      | Same as above.                                                                                       |
+
 
 
