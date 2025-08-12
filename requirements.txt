@@ -1,0 +1,10 @@
+streamlit
+opencv-python
+numpy
+websocket-client
+ultralytics
+fastapi
+uvicorn[standard]
+rclpy
+rosidl-runtime-py
+pyserial
