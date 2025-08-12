@@ -173,5 +173,4 @@ The UI integrates Ultralytics YOLOv8 for visual recognition.
 
 Detected objects are displayed on the camera stream in real time.
 
-Detection performance depends on your Raspberry Pi’s processing capability and the chosen YOLO model size.
 
